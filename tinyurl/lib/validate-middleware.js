@@ -9,9 +9,8 @@ export default function validateMiddleware(validations, validationResult) {
         if (errors.isEmpty()) {
             return next();
         }
-
-        return res
-            .status(422)
-            .json({ errors: errors.array() });
+        
+        res.status(422)
+           .json({ errors: errors.array() });
     }
 }
