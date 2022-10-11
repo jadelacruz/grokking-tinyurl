@@ -12,15 +12,16 @@ services:
     ports:
       - 8000:8000
     volumes:
-      - ./tinyurl/components:/home/www/tinyurl/components
-      - ./tinyurl/lib:/home/www/tinyurl/lib
-      - ./tinyurl/pages:/home/www/tinyurl/pages
-      - ./tinyurl/public:/home/www/tinyurl/public
-      - ./tinyurl/next.config.js:/home/www/tinyurl/next.config.js
-      - ./tinyurl/.env.local:/home/www/tinyurl/.env.local
-  # mongo:
-  #   image: mongo
-  #   restart: always
-  #   environment:
-  #     MONGO_INITDB_ROOT_USERNAME: root
-  #     MONGO_INITDB_ROOT_PASSWORD: password
+      - ./tinyurl:/home/www/tinyurl
+      - /home/www/tinyurl/.next/
+      - /home/www/tinyurl/node_modules/
+  mongo:
+    image: mongo
+    restart: always
+    expose:
+      - 27017
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password

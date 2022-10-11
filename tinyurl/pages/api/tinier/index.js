@@ -1,6 +1,7 @@
-import initMiddleware from '../../../lib/init-middleware';
-import validateMiddleware from '../../../lib/validate-middleware';
+import initMiddleware from '../../../lib/init.middleware';
+import validateMiddleware from '../../../lib/validate.middleware';
 import { check, validationResult } from 'express-validator';
+import Connection from '../../../config/db.config';
 
 const validateBody = initMiddleware(
     validateMiddleware([

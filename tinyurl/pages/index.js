@@ -1,65 +1,38 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState, useEffect } from 'react';
-import Header from '../components/header';
+import TinierForm from '../components/tinier/TinierForm';
+import TinyRest from '../rest/tiny.rest';
 
-function HomePage( props ) {
-    const [url, setUrl] = useState("");
-    const handleClick   = (e) => { 
-        e.preventDefault();
-        console.log(url);
-        // tinyRequest(url);
-     };
-    const handleChange  = ({ value }) => setUrl(value);
-    const tinyRequest   = async url => {
-        const data   = { firstName: url };
-        const header = { 'Content-type': 'application/json' };
-            console.log(data);
-        await fetch('/api/tinier', {
-            method: 'post',
-            body: JSON.stringify(data),
-            headers: header
-        });
-    }
+function HomeContainer( props ) {
+    const [url, setUrl]  = useState(props.url);
+    const eventListeners = {
+        changedUrl : e => changedUrl(e),
+        tinifiedUrl: e => tinifiedUrl(e)
+    };
 
-    return <>
-        <Header />
-        <div className="container">
-            <div className="row">
-                <div className="col">
-                    <form className="row">
+    const changedUrl  = e => setUrl(e.target.value);
+    const tinifiedUrl = e => {
+        TinyRest.tinifiedUrl(url);
+    };
 
-                        <div className="mb-3">
-                            <label 
-                                className="form-label">URL</label>
-                            <textarea 
-                                required
-                                className="form-control"
-                                id="url"
-                                placeholder="Required URL"
-                                value={ url }
-                                onChange={ handleChange }></textarea>
-                            <div className="invalid-feedback">Invalid URL</div>
-                        </div>
-
-                        <div className="mb-3">
-                            <label
-                                className="form-label">Tinified URL</label>
-                            <input 
-                                disabled
-                                className="form-control"
-                                id="tinyUrl"></input>
-                        </div>
-
-                        <div className="mb-3">
-                            <button 
-                                className="btn btn-primary" 
-                                onClick={ handleClick }>Submit</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </>
+    return (
+        <>
+            <TinierForm
+                url={ url }
+                eventListeners={ eventListeners }
+            />
+        </>
+    )
 }
 
-export default HomePage
+export async function getStaticProps( context ) {
+    // const url = new Url('test');
+    return {
+        props: {
+            url: '',
+            tinyUrl: ''
+        }
+    }
+}
+
+export default HomeContainer
