@@ -9,32 +9,33 @@ function HomeContainer( props ) {
     const [tinyUrl, setTinyUrl] = useState(props.tinyUrl);
 
     const eventListeners = {
-        changedUrl : e => changedUrl(e),
-        tinifiedUrl: e => tinifiedUrl(e),
-        tinyUrlClicked: e => tinyUrlClicked(e),
-        clearFields: e => clearFields(e)
-    };
+        changedUrl : e => setUrl(e.target.value),
 
-    const changedUrl  = e => setUrl(e.target.value);
-    const tinifiedUrl = async e => {
-        try {
-            const result   = await TinyRest.tinifiedUrl(url).then( data => data.json() );
-            const { shortUrl, urlCode } = result;
+        tinifiedUrl: async e => {
+            const result = await TinyRest.tinifiedUrl(url);
+            if (result.status >= 400 && !result.ok) {
+                setTinyUrl('');
+                return false;
+            }
+
+            const { shortUrl, urlCode } = await result.json();
             setTinyUrl(shortUrl + 'api/' + urlCode);
             alert('Tinified URL has been generated.')
-        } catch (e) {
 
-        }
-    };
-    const tinyUrlClicked = ({ preventDefault, target }) => {
-        const url = target.value;
-        window.open(url, '_blank');
-    };
-    const clearFields = e => {
-        e.preventDefault();
-        if (confirm("Are you sure you want to reset the fields?")) {
-            setUrl("");
-            setTinyUrl("");
+            return true;
+        },
+
+        tinyUrlClicked: ({ target }) => {
+            const url = target.value;
+            window.open(url, '_blank');
+        },
+
+        clearFields: e => {
+            e.preventDefault();
+            if (confirm("Are you sure you want to reset the fields?")) {
+                setUrl("");
+                setTinyUrl("");
+            }
         }
     };
 
