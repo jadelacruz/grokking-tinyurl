@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState, useEffect } from 'react';
 import TinierForm from '../components/tinier/TinierForm';
+import { Card, CardBody, CardTitle } from '../components/card/Card';
 import TinyRest from '../rest/tiny.rest';
 
 function HomeContainer( props ) {
@@ -10,7 +11,8 @@ function HomeContainer( props ) {
     const eventListeners = {
         changedUrl : e => changedUrl(e),
         tinifiedUrl: e => tinifiedUrl(e),
-        tinyUrlClicked: e => tinyUrlClicked(e)
+        tinyUrlClicked: e => tinyUrlClicked(e),
+        clearFields: e => clearFields(e)
     };
 
     const changedUrl  = e => setUrl(e.target.value);
@@ -24,18 +26,30 @@ function HomeContainer( props ) {
 
         }
     };
-    const tinyUrlClicked = ({ target }) => {
+    const tinyUrlClicked = ({ preventDefault, target }) => {
         const url = target.value;
         window.open(url, '_blank');
+    };
+    const clearFields = e => {
+        e.preventDefault();
+        if (confirm("Are you sure you want to reset the fields?")) {
+            setUrl("");
+            setTinyUrl("");
+        }
     };
 
     return (
         <>
-            <TinierForm
-                url={ url }
-                tinyUrl={ tinyUrl }
-                eventListeners={ eventListeners }
-            />
+            <Card style={{ "margin-top": "70px" }}>
+                <CardBody>
+                    <CardTitle value="TinyURL (NextJS + MongoDB)" />
+                    <TinierForm
+                        url={ url }
+                        tinyUrl={ tinyUrl }
+                        eventListeners={ eventListeners }
+                    />
+                </CardBody>
+            </Card>
         </>
     )
 }
