@@ -40,7 +40,7 @@ function TinierForm({url, tinyUrl, eventListeners, urlInvalid}) {
                     placeholder={'Output'}
                     id={'tinyUrl'}
                     value={tinyUrl}
-                    onClick={e => resulttinyUrlClicked(e)}></input>
+                    onClick={e => tinyUrlClicked(e)}></input>
             </div>
 
 
