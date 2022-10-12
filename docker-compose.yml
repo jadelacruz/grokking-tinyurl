@@ -17,11 +17,12 @@ services:
       - /home/www/tinyurl/node_modules/
   mongo:
     image: mongo
+    container_name: mongo_db
     restart: always
     expose:
-      - 27017
+      - 27016
     ports:
-      - 27017:27017
+      - 27016:27017
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: password

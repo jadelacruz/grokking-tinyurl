@@ -1,8 +1,14 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function TinierForm({ url, tinyUrl, eventListeners }) {
-    const { changedUrl, tinifiedUrl } = eventListeners;
+    const { changedUrl, tinifiedUrl, tinyUrlClicked } = eventListeners;
     return <form>
+                <style jsx>{`
+                    .disable-input {
+                        background-color: "#e9ecef";
+                        opacity: 1;
+                    }
+                `}</style>
                 <div className="mb-3">
                     <label 
                         className="form-label">URL</label>
@@ -19,12 +25,14 @@ function TinierForm({ url, tinyUrl, eventListeners }) {
                 <div className="mb-3">
                     <label
                         className="form-label">Tinified URL</label>
-                    <input 
-                        disabled
-                        className="form-control"
+                    <input
+                        readOnly
+                        style= { {backgroundColor: "#e9ecef", cursor: "pointer"} }
+                        className="disable-input form-control "
                         placeholder="Output"
                         id="tinyUrl"
-                        value={ tinyUrl }></input>
+                        value={ tinyUrl }
+                        onClick={ e => tinyUrlClicked(e) }></input>
                 </div>
 
                 <div className="mb-3">

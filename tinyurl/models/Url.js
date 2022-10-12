@@ -1,15 +1,11 @@
 const mongoose = require('mongoose');
+const Schema   = mongoose.Schema;
 
-mongoose.connect('mongodb://localhost/tinyurl');
-mongoose.connection.on('open', r => {
-    console.log('open');
-});
-mongoose.connection.on('error', r => {
-    console.log('err');
-});
-
-const URLSchema = new mongoose.Schema({
-    test: String
+const URLSchema = new Schema({
+    urlCode: String,
+    longUrl: String,
+    shortUrl: String,
+    date: { type: String, default: Date.now }
 });
 
-module.exports = mongoose.model('Url', URLSchema);
+module.exports = mongoose.models.Url || mongoose.model('Url', URLSchema);
