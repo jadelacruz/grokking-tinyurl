@@ -5,7 +5,6 @@ const TinyRest = {
 };
 
 function tinifiedUrl( url = '' ) {
-    console.log({ url: url });
     return fetch('/api/tinier', {
         method: 'post',
         body: JSON.stringify({ userUrl: url }),
