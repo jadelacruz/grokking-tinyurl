@@ -69,6 +69,7 @@ function validateMiddleware(validations, validationResult) {
 }
 
 ;// CONCATENATED MODULE: ./pages/api/tinier/index.js
+__webpack_require__(81);
 
 
 
@@ -92,7 +93,7 @@ async function handler(req, res) {
         return res.json(url);
     }
     const urlCode = shortId.generate();
-    const baseUrl = "http://localhost:8000/";
+    const baseUrl = process.env.VERCEL_URL || process.env.APP_URL;
     const longUrl = userUrl;
     const shortUrl = baseUrl;
     url = new Url({

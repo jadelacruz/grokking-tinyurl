@@ -30,7 +30,7 @@ export default async function handler(req, res) {
     }
     
     const urlCode  = shortId.generate();
-    const baseUrl  = process.env.APP_URL;
+    const baseUrl  = process.env.VERCEL_URL || process.env.APP_URL;
     const longUrl  = userUrl;
     const shortUrl = baseUrl
     url = new Url({
