@@ -1,7 +1,6 @@
 import initMiddleware from '../../../lib/init.middleware';
 import validateMiddleware from '../../../lib/validate.middleware';
 import { check, validationResult } from 'express-validator';
-require('../../../config/db.config');
 
 
 const shortId      = require('shortid');

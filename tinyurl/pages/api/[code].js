@@ -1,4 +1,3 @@
-require('../../config/db.config');
 const Url = require('../../models/Url');
 
 export default async function handler(req, res) {

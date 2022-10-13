@@ -1,3 +1,0 @@
-function CardBody({ style }) {
-    
-}

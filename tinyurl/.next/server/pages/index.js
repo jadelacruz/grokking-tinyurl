@@ -206,7 +206,7 @@ function HomeContainer(props) {
     return /*#__PURE__*/ jsx_runtime_.jsx(jsx_runtime_.Fragment, {
         children: /*#__PURE__*/ jsx_runtime_.jsx(Card, {
             style: {
-                "margin-top": "70px"
+                marginTop: "70px"
             },
             children: /*#__PURE__*/ (0,jsx_runtime_.jsxs)(CardBody, {
                 children: [

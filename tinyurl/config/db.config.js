@@ -1,11 +1,25 @@
-const DB_URI   = process.env.DB_URI;
-const mongoose = require('mongoose');
+import 'dotenv/config';
 
-mongoose.connect(DB_URI, {
-    useNewUrlParser   : true,
-    useUnifiedTopology: true 
-});
+const mongoClient = require('mongoose');
+const uri     = process.env.MONGODB_URI;
+const options = {
+    useUnifiedTopology: true,
+    useNewUrlParser: true
+};
 
-const Connection = mongoose.connection;
+if (!uri) {
+    throw new Error('Please make sure that the Mongo URI is set.')
+}
 
-module.exports = Connection;
+let clientPromise;
+
+if (process.env['NODE_ENV'] === 'development') {
+    if (!global._mongoClientPromise) {
+        global._mongoClientPromise = mongoClient.connect(uri, options)
+    }
+    clientPromise = global._mongoClientPromise;
+} else {
+    clientPromise = mongoClient.connect(uri, options)
+}
+
+export default clientPromise

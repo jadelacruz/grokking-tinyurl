@@ -41,7 +41,7 @@ function HomeContainer( props ) {
 
     return (
         <>
-            <Card style={{ "margin-top": "70px" }}>
+            <Card style={{ marginTop: "70px" }}>
                 <CardBody>
                     <CardTitle value="TinyURL (NextJS + MongoDB)" />
                     <TinierForm
