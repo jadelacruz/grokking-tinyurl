@@ -27,7 +27,9 @@ function HomeContainer( props ) {
 
         tinyUrlClicked: ({ target }) => {
             const url = target.value;
-            window.open(url, '_blank');
+            if (target.value.length > 0) {
+                window.open(url, '_blank');
+            }
         },
 
         clearFields: e => {

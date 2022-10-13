@@ -1,3 +1,4 @@
+require('dotenv/config');
 import initMiddleware from '../../../lib/init.middleware';
 import validateMiddleware from '../../../lib/validate.middleware';
 import { check, validationResult } from 'express-validator';
@@ -29,7 +30,7 @@ export default async function handler(req, res) {
     }
     
     const urlCode  = shortId.generate();
-    const baseUrl  = 'http://localhost:8000/';
+    const baseUrl  = process.env.APP_URL;
     const longUrl  = userUrl;
     const shortUrl = baseUrl
     url = new Url({
